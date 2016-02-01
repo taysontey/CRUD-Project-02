@@ -3,10 +3,34 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Layout</title>
+    <title>Projeto CRUD 002 - NHibernate/MVC(Javascript)</title>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
 </head>
 <body>
-    <div> 
+
+    <div class="container">
+        
+        <h3>Projeto CRUD 002 - NHibernate/MVC(Javascript)</h3>
+        <hr />
+
+        <h4>Time</h4>
+        <a href="/Time/Cadastro">Cadastrar</a>
+        <br />
+        <a href="/Time/Consulta">Consultar</a>
+        <hr />
+
+        <h4>Jogador</h4>
+        <a href="/Jogador/Cadastro">Cadastrar</a>
+        <br />
+        <a href="/Jogador/Consulta">Consultar</a>
+        <hr />
+           
+    </div>
+
+    <div class="row">
+        @RenderBody()
     </div>
 </body>
 </html>

@@ -122,6 +122,7 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Shared\Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -130,7 +131,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Home\" />
     <Folder Include="Views\Jogador\" />
     <Folder Include="Views\Time\" />
   </ItemGroup>
