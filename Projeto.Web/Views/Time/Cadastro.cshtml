@@ -3,6 +3,45 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
+@section javascript{
+
+    <script type="text/javascript">
+
+        $(document).ready(
+            function () {
+
+                $("#btncadastro_time").click(
+                    function () {
+
+                        var Model = {
+
+                            Nome: $("#time_nome").val(),
+                            DataFundacao: $("#time_fundacao").val()
+
+                        };
+
+                        $.ajax(
+                            {
+                                type: "POST",
+                                url: "/Time/Cadastro",
+                                data: Model,
+                                success: function (msg) {
+
+                                    $("#mensagem_time").html(msg);
+
+                                },
+                                error: function (e) {
+
+                                    $("#mensagem_time").html(e.status);
+
+                                }
+
+                            })
+                    })
+            })
+    </script>
+}
+
 <div class="container">
 
     <div class="form-horizontal">
@@ -29,6 +68,7 @@
                 <button class="btn btn-default" id="btncadastro_time">Cadastrar Time</button>
             </div>
         </div>
+        <span id="mensagem_time"></span>
     </div>
 </div>
 

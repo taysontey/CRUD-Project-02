@@ -134,6 +134,16 @@
   <ItemGroup>
     <Folder Include="Views\Jogador\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Projeto.DAL\Projeto.DAL.csproj">
+      <Project>{491b18a3-3c57-4109-8c30-92668c784017}</Project>
+      <Name>Projeto.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Projeto.Entity\Projeto.Entity.csproj">
+      <Project>{d264a1af-8e28-43a6-84f5-9388e35ee375}</Project>
+      <Name>Projeto.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
