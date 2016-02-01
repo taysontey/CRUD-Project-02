@@ -8,7 +8,7 @@ namespace Projeto.Web.Controllers
 {
     public class TimeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Cadastro()
         {
             return View();
         }
