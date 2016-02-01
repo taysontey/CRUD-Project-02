@@ -7,16 +7,21 @@ namespace Projeto.Web.Models
 {
     public class TimeModelCadastro
     {
-
+        public string Nome { get; set; }
+        public DateTime DataFundacao { get; set; }
     }
 
     public class TimeModelEdicao
     {
-
+        public int IdTime { get; set; }
+        public string Nome { get; set; }
+        public DateTime DataFundacao { get; set; }
     }
 
     public class TimeModelConsulta
     {
-
+        public int IdTime { get; set; }
+        public string Nome { get; set; }
+        public string DataFundacao { get; set; }
     }
 }
