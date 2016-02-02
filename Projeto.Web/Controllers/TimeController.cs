@@ -17,8 +17,13 @@ namespace Projeto.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public JsonResult Cadastro(TimeModelCadastro model)
+        [AllowAnonymous]
+        public ActionResult Consulta()
+        {
+            return View();
+        }
+
+        public JsonResult Cadastrar(TimeModelCadastro model)
         {
             try
             {
@@ -31,6 +36,32 @@ namespace Projeto.Web.Controllers
                 d.SaveOrUpdate(t);
 
                 return Json("Time " + t.Nome +  ", cadastrado com sucesso.");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        public JsonResult Consultar()
+        {
+            try
+            {
+                var list = new List<TimeModelConsulta>();
+                TimeDal d = new TimeDal();
+
+                foreach(Time t in d.FindAll())
+                {
+                    var model = new TimeModelConsulta();
+
+                    model.IdTime = t.IdTime;
+                    model.Nome = t.Nome;
+                    model.DataFundacao = t.DataFundacao.ToString("dd/MM/yyyy");
+
+                    list.Add(model);
+                }
+
+                return Json(list);
             }
             catch (Exception e)
             {

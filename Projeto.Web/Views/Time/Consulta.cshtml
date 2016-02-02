@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "Consulta";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@section javascript{
+
+    <script type="text/javascript">
+
+        $(document).ready(
+            function () {
+
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Time/Consultar",
+                        success: function (lista) {
+
+                            if (lista[0] != null) {
+
+                                var dados = "";
+
+                                for (var i = 0; i < lista.length; i++) {
+                                    dados += "<tr>";
+                                    dados += "<td align='center'>" + lista[i].IdTime + "</td>";
+                                    dados += "<td align='center'>" + lista[i].Nome + "</td>";
+                                    dados += "<td align='center'>" + lista[i].DataFundacao + "</td>";
+                                    dados += "</tr>";
+                                }
+
+                                $("#lista_time tbody").empty();
+                                $("#lista_time tbody").append(dados);
+                            }
+                        },
+                        error: function (e) {
+                            $("#mensagem_time").html(e.status);
+                        }
+                    });
+            })
+
+    </script>
+}
+
+<div class="container" style="text-align:center">
+    <h3>Lista de Times</h3>
+    <br />
+</div>
+
+<div class="container">
+
+    <table id="lista_time" class="table table-hover" style="text-align:center">
+        <thead>
+            <tr>
+                <th style="text-align:center">
+                    Código
+                </th>
+                <th style="text-align:center">
+                    Nome
+                </th>
+                <th style="text-align:center">
+                    Data de Fundação
+                </th>
+                <th style="text-align:center">
+                    Opções
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr class="info">
+                <td align="center">Não há dados para exibir.</td>
+            </tr>
+        </tbody>
+
+    </table>
+    <span id="mensagem_time"></span>
+</div>
