@@ -125,6 +125,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Time\Cadastro.cshtml" />
     <Content Include="Views\Time\Consulta.cshtml" />
+    <Content Include="Views\Jogador\Cadastro.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -132,9 +133,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Jogador\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Projeto.DAL\Projeto.DAL.csproj">
       <Project>{491b18a3-3c57-4109-8c30-92668c784017}</Project>

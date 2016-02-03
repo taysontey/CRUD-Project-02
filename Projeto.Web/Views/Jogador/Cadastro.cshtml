@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Cadastro";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@section javascript{
+
+    <script type="text/javascript">
+
+        $(document).ready(
+            function () {
+
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Jogador/CarregarTimes",
+                        success: function (lista) {
+
+                            $("#DropDownTime").append("<option value=''>" + "Escolha um Time..." + "</option>");
+
+                            for (var i = 0; i < lista.length; i++) {
+                                $("#DropDownTime").append("<option value=" + lista[i].IdTime + ">" + lista[i].Nome + "</option>");
+                            }
+                        },
+                        error: function (e) {
+
+                            $("#mensagem_jogador").html(e.status);
+                        }
+
+                    });
+
+                $("#btncadastro_jogador").click(
+                    function () {
+
+                        var Model = {
+
+                            Nome: $("#jogador_nome").val(),
+                            Apelido: $("#jogador_apelido").val(),
+                            Posicao: $("#jogador_posicao").val(),
+                            DataNascimento: $("#jogador_datanascimento").val(),
+                            IdTime: document.getElementById("DropDownTime").value
+                        };
+
+                        $.ajax(
+                            {
+                                type: "POST",
+                                url: "/Jogador/Cadastrar",
+                                data: Model,
+                                success: function (msg) {
+
+                                    $("#mensagem_jogador").html(msg);
+
+                                },
+                                error: function (e) {
+
+                                    $("#mensagem_jogador").html(e.status);
+                                }
+                            });
+
+                    })
+
+            })
+
+    </script>
+
+}
+
+
+
+<div class="container">
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nome:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="jogador_nome" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Apelido:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="jogador_apelido" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Posição:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="jogador_posicao" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Data de Nascimento:</label>
+            <div class="col-md-2">
+                <input type="date" class="form-control" id="jogador_datanascimento" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Selecione o Time:</label>
+            <div class="col-md-2">
+                <select id="DropDownTime"></select>
+            </div>
+        </div>
+        <hr />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-default" id="btncadastro_jogador">Cadastrar Jogador</button>
+            </div>
+        </div>
+
+        <span id="mensagem_jogador"></span>
+    </div>
+
+</div>
+
