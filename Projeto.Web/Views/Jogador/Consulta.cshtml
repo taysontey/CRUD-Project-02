@@ -13,7 +13,7 @@
                 $.ajax(
                     {
                         type: "POST",
-                        url: "/Time/Consultar",
+                        url: "/Jogador/Consultar",
                         success: function (lista) {
 
                             if (lista[0] != null) {
@@ -23,33 +23,39 @@
                                 for (var i = 0; i < lista.length; i++) {
 
                                     dados += "<tr>";
-                                    dados += "<td align='center'>" + lista[i].IdTime + "</td>";
+                                    dados += "<td align='center'>" + lista[i].IdJogador + "</td>";
                                     dados += "<td align='center'>" + lista[i].Nome + "</td>";
-                                    dados += "<td align='center'>" + lista[i].DataFundacao + "</td>";
+                                    dados += "<td align='center'>" + lista[i].Apelido + "</td>";
+                                    dados += "<td align='center'>" + lista[i].Posicao + "</td>";
+                                    dados += "<td align='center'>" + lista[i].DataNascimento + "</td>";
+                                    dados += "<td align='center'>" + lista[i].Time + "</td>";
                                     dados += "</tr>";
                                 }
 
-                                $("#lista_time tbody").empty();
-                                $("#lista_time tbody").append(dados);
+                                $("#lista_jogadores tbody").empty();
+                                $("#lista_jogadores tbody").append(dados);
                             }
                         },
                         error: function (e) {
-                            $("#mensagem_time").html(e.status);
+                            $("#mensagem_jogador").html(e.status);
                         }
                     });
+
             })
 
     </script>
 }
 
+
+
 <div class="container" style="text-align:center">
-    <h3>Lista de Times</h3>
+    <h3>Lista de Jogadores</h3>
     <br />
 </div>
 
 <div class="container">
 
-    <table id="lista_time" class="table table-hover" style="text-align:center">
+    <table id="lista_jogadores" class="table table-hover" style="text-align:center">
         <thead>
             <tr>
                 <th style="text-align:center">
@@ -59,7 +65,16 @@
                     Nome
                 </th>
                 <th style="text-align:center">
-                    Data de Fundação
+                    Apelido
+                </th>
+                <th style="text-align:center">
+                    Posição
+                </th>
+                <th style="text-align:center">
+                    Data de Nascimento
+                </th>
+                <th style="text-align:center">
+                    Time
                 </th>
                 <th style="text-align:center">
                     Opções
@@ -74,5 +89,8 @@
         </tbody>
 
     </table>
-    <span id="mensagem_time"></span>
+
+    <span id="mensagem_jogador"></span>
+
 </div>
+

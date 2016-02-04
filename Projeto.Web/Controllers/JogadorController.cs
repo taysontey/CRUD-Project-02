@@ -17,6 +17,12 @@ namespace Projeto.Web.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult Consulta()
+        {
+            return View();
+        }
+
         public JsonResult CarregarTimes()
         {
             try
@@ -60,6 +66,35 @@ namespace Projeto.Web.Controllers
                 d.SaveOrUpdate(j);
 
                 return Json("Jogador " + j.Nome + ", cadastrado com sucesso.");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        public JsonResult Consultar()
+        {
+            try
+            {
+                JogadorDal d = new JogadorDal();
+                var list = new List<JogadorModelConsulta>();
+
+                foreach(Jogador j in d.FindAll())
+                {
+                    var model = new JogadorModelConsulta();
+
+                    model.IdJogador = j.IdJogador;
+                    model.Nome = j.Nome;
+                    model.Apelido = j.Apelido;
+                    model.Posicao = j.Posicao;
+                    model.DataNascimento = j.DataNascimento.ToString("dd/MM/yyyy");
+                    model.Time = j.Time.Nome;
+
+                    list.Add(model);
+                }
+
+                return Json(list);
             }
             catch (Exception e)
             {
