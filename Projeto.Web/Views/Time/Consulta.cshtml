@@ -26,8 +26,8 @@
                                     dados += "<td align='center'>" + lista[i].IdTime + "</td>";
                                     dados += "<td align='center'>" + lista[i].Nome + "</td>";
                                     dados += "<td align='center'>" + lista[i].DataFundacao + "</td>";
-                                    dados += "<td>" + '<a onclick="editFunction(\'' + lista[i].IdTime + '\')">' + " Editar" + "</a>" + " " +
-                                                         '<a onclick="deleteFunction(\'' + lista[i].IdTime + '\');" >' + " Excluir" + "</a>" + "</td>";
+                                    dados += "<td>" + '<button class="btn-link" onclick="editFunction(\'' + lista[i].IdTime + '\')">' + " Editar" + "</button>" + " " +
+                                                        '<button class="btn-link" onclick="deleteFunction(\'' + lista[i].IdTime + '\');" >' + " Excluir" + "</button>" + "</td>";
                                     dados += "</tr>";
                                 }
 
@@ -72,6 +72,48 @@
 
         }
 
+        function editFunction(id) {
+
+            $('#janela_edicao').modal('show');
+
+            var dados = {
+
+                IdTime: id
+            }
+
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Time/Editar",
+                    data: dados,
+                    success: function (lista) {
+
+                        $("#time_id").val(lista.IdTime);
+                        $("#time_nome").val(lista.Nome);
+                        $("#time_datafundacao").val(lista.DataFundacao);
+
+                    },
+
+                    error: function (e) {
+                        $("#mensagem_time").html(e.status);
+                    }
+                });
+
+            $("#btnedicao_time").click(
+                function () {
+
+                    alert('teste');
+
+                    var dados = {
+
+
+
+                    }
+
+                })
+
+        }
+
     </script>
 }
 
@@ -108,4 +150,40 @@
 
     </table>
     <span id="mensagem_time"></span>
+</div>
+
+<div id="janela_edicao" class="modal fade">
+    <div class="modal-dialog">
+        <div class="col-md-12">
+            <div class="modal-content">
+
+                <div class="modal-header bg-info" style="text-align:center">
+                    <h3>Edição de Times</h3>
+                </div>
+
+                <div class="modal-body">
+
+                    <label>Código:</label>
+                    <input type="text" id="time_id" class="form-control" readonly />
+
+                    <label>Nome:</label>
+                    <input type="text" id="time_nome" class="form-control" />
+                    <br />
+
+                    <label>Data de Fundação:</label>
+                    <input type="text" id="time_datafundacao" class="form-control" onblur="(this.type='text')" onfocus="(this.type='date')" />
+                    <br />
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button id="btnedicao_time" class="btn-link">
+                        Salvar
+                    </button>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

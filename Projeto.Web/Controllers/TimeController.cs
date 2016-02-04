@@ -43,6 +43,30 @@ namespace Projeto.Web.Controllers
             }
         }
 
+        public JsonResult Editar(TimeModelId m)
+        {
+            var model = new TimeModelEdicao();
+
+            try
+            {
+                TimeDal d = new TimeDal();
+                Time t = d.FindById(m.IdTime);
+
+                if(t != null)
+                {
+                    model.IdTime = t.IdTime;
+                    model.Nome = t.Nome;
+                    model.DataFundacao = t.DataFundacao.ToString("dd/MM/yyyy");
+                }
+
+                return Json(model);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }  
+        }
+
         public JsonResult Consultar()
         {
             try
@@ -69,15 +93,15 @@ namespace Projeto.Web.Controllers
             }
         }
 
-        public JsonResult Excluir(TimeModelExclusao model)
+        public JsonResult Excluir(TimeModelId m)
         {
             try
             {
                 TimeDal d = new TimeDal();
 
-                if (d.FindById(model.IdTime) != null)
+                if (d.FindById(m.IdTime) != null)
                 {
-                    d.Delete(d.FindById(model.IdTime));
+                    d.Delete(d.FindById(m.IdTime));
                 }
 
                 return Json("Time excluído.");

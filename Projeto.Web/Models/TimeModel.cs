@@ -15,7 +15,7 @@ namespace Projeto.Web.Models
     {
         public int IdTime { get; set; }
         public string Nome { get; set; }
-        public DateTime DataFundacao { get; set; }
+        public string DataFundacao { get; set; }
     }
 
     public class TimeModelConsulta
@@ -25,7 +25,7 @@ namespace Projeto.Web.Models
         public string DataFundacao { get; set; }
     }
 
-    public class TimeModelExclusao
+    public class TimeModelId
     {
         public int IdTime { get; set; }
     }
