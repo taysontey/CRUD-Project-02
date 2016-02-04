@@ -56,7 +56,7 @@ namespace Projeto.Web.Controllers
                 {
                     model.IdTime = t.IdTime;
                     model.Nome = t.Nome;
-                    model.DataFundacao = t.DataFundacao.ToString("dd/MM/yyyy");
+                    model.DataFundacao = t.DataFundacao;
                 }
 
                 return Json(model);
@@ -65,6 +65,27 @@ namespace Projeto.Web.Controllers
             {
                 return Json(e.Message);
             }  
+        }
+
+        public JsonResult Edicao(TimeModelEdicao model)
+        {
+            try
+            {
+                Time t = new Time();
+                TimeDal d = new TimeDal();
+
+                t.IdTime = model.IdTime;
+                t.Nome = model.Nome;
+                t.DataFundacao = model.DataFundacao;
+
+                d.SaveOrUpdate(t);
+
+                return Json("Time editado com sucesso.");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
         }
 
         public JsonResult Consultar()

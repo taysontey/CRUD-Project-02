@@ -74,6 +74,13 @@
 
         function editFunction(id) {
 
+            //Formatação dos campos "DateTime".
+            function formatData(jsonDateString) {
+                var data = new Date(parseInt(jsonDateString.replace('/Date(', '')));
+                var localData = data.toLocaleDateString();
+                return localData;
+            }
+
             $('#janela_edicao').modal('show');
 
             var dados = {
@@ -90,7 +97,7 @@
 
                         $("#time_id").val(lista.IdTime);
                         $("#time_nome").val(lista.Nome);
-                        $("#time_datafundacao").val(lista.DataFundacao);
+                        $("#time_fundacao").val(formatData(lista.DataFundacao));
 
                     },
 
@@ -102,13 +109,36 @@
             $("#btnedicao_time").click(
                 function () {
 
-                    alert('teste');
-
                     var dados = {
 
-
+                        IdTime: $("#time_id").val(),
+                        Nome: $("#time_nome").val(),
+                        DataFundacao: $("#time_fundacao").val()
 
                     }
+
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/Time/Edicao",
+                            data: dados,
+                            success: function (msg) {
+
+                                $('#janela_edicao').modal('hide');
+                                $("#mensagem_time").html(msg);
+
+                                window.setTimeout(
+                                        function () {
+                                            location.reload()
+                                        }, 3000)
+
+                            },
+                            error: function (e) {
+
+                                $("#mensagem_time").html(e.status);
+
+                            }
+                        })
 
                 })
 
@@ -171,7 +201,7 @@
                     <br />
 
                     <label>Data de Fundação:</label>
-                    <input type="text" id="time_datafundacao" class="form-control" onblur="(this.type='text')" onfocus="(this.type='date')" />
+                    <input type="text" id="time_fundacao" class="form-control" onblur="(this.type='text')" onfocus="(this.type='date')" />
                     <br />
 
                 </div>
