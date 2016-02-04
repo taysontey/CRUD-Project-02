@@ -68,5 +68,24 @@ namespace Projeto.Web.Controllers
                 return Json(e.Message);
             }
         }
+
+        public JsonResult Excluir(TimeModelExclusao model)
+        {
+            try
+            {
+                TimeDal d = new TimeDal();
+
+                if (d.FindById(model.IdTime) != null)
+                {
+                    d.Delete(d.FindById(model.IdTime));
+                }
+
+                return Json("Time excluído.");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
     }
 }
