@@ -28,14 +28,13 @@ namespace Projeto.Web.Controllers
             try
             {
                 Time t = new Time();
-                TimeDal d = new TimeDal();
-
                 t.Nome = model.Nome;
                 t.DataFundacao = model.DataFundacao;
 
+                TimeDal d = new TimeDal();
                 d.SaveOrUpdate(t);
 
-                return Json("Time " + t.Nome +  ", cadastrado com sucesso.");
+                return Json("Time " + t.Nome + ", cadastrado com sucesso.");
             }
             catch (Exception e)
             {
@@ -43,18 +42,15 @@ namespace Projeto.Web.Controllers
             }
         }
 
-        public JsonResult Editar(TimeModelId m)
+        public JsonResult Editar(TimeModelEdicao model)
         {
-            var model = new TimeModelEdicao();
-
             try
             {
                 TimeDal d = new TimeDal();
-                Time t = d.FindById(m.IdTime);
+                Time t = d.FindById(model.IdTime);
 
-                if(t != null)
+                if (t != null)
                 {
-                    model.IdTime = t.IdTime;
                     model.Nome = t.Nome;
                     model.DataFundacao = t.DataFundacao;
                 }
@@ -64,7 +60,7 @@ namespace Projeto.Web.Controllers
             catch (Exception e)
             {
                 return Json(e.Message);
-            }  
+            }
         }
 
         public JsonResult Edicao(TimeModelEdicao model)
@@ -72,15 +68,14 @@ namespace Projeto.Web.Controllers
             try
             {
                 Time t = new Time();
-                TimeDal d = new TimeDal();
-
                 t.IdTime = model.IdTime;
                 t.Nome = model.Nome;
                 t.DataFundacao = model.DataFundacao;
 
+                TimeDal d = new TimeDal();
                 d.SaveOrUpdate(t);
 
-                return Json("Time editado com sucesso.");
+                return Json("Time editado com sucesso, atualizando...");
             }
             catch (Exception e)
             {
@@ -95,7 +90,7 @@ namespace Projeto.Web.Controllers
                 var list = new List<TimeModelConsulta>();
                 TimeDal d = new TimeDal();
 
-                foreach(Time t in d.FindAll())
+                foreach (Time t in d.FindAll())
                 {
                     var model = new TimeModelConsulta();
 
@@ -114,18 +109,23 @@ namespace Projeto.Web.Controllers
             }
         }
 
-        public JsonResult Excluir(TimeModelId m)
+        public JsonResult Excluir(TimeModelEdicao model)
         {
             try
             {
                 TimeDal d = new TimeDal();
+                Time t = d.FindById(model.IdTime);
 
-                if (d.FindById(m.IdTime) != null)
+                if (t != null)
                 {
-                    d.Delete(d.FindById(m.IdTime));
-                }
+                    d.Delete(t);
 
-                return Json("Time excluído.");
+                    return Json("Time excluído, atualizando...");
+                }
+                else
+                {
+                    return Json("Time não encontrado.");
+                }
             }
             catch (Exception e)
             {

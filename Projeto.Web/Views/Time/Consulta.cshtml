@@ -39,13 +39,11 @@
                             $("#mensagem_time").html(e.status);
                         }
                     });
-
-
             });
 
         function deleteFunction(id) {
 
-            var dados = {
+            var Model = {
 
                 IdTime: id
             }
@@ -54,7 +52,7 @@
                 {
                     type: "POST",
                     url: "/Time/Excluir",
-                    data: dados,
+                    data: Model,
                     success: function (msg) {
 
                         $("#mensagem_time").html(msg);
@@ -69,7 +67,6 @@
                         $("#mensagem_time").html(e.status);
                     }
                 });
-
         }
 
         function editFunction(id) {
@@ -83,7 +80,7 @@
 
             $('#janela_edicao').modal('show');
 
-            var dados = {
+            var Model = {
 
                 IdTime: id
             }
@@ -92,7 +89,7 @@
                 {
                     type: "POST",
                     url: "/Time/Editar",
-                    data: dados,
+                    data: Model,
                     success: function (lista) {
 
                         $("#time_id").val(lista.IdTime);
@@ -100,7 +97,6 @@
                         $("#time_fundacao").val(formatData(lista.DataFundacao));
 
                     },
-
                     error: function (e) {
                         $("#mensagem_time").html(e.status);
                     }
@@ -109,7 +105,7 @@
             $("#btnedicao_time").click(
                 function () {
 
-                    var dados = {
+                    var Model = {
 
                         IdTime: $("#time_id").val(),
                         Nome: $("#time_nome").val(),
@@ -121,7 +117,7 @@
                         {
                             type: "POST",
                             url: "/Time/Edicao",
-                            data: dados,
+                            data: Model,
                             success: function (msg) {
 
                                 $('#janela_edicao').modal('hide');
@@ -131,19 +127,13 @@
                                         function () {
                                             location.reload()
                                         }, 3000)
-
                             },
                             error: function (e) {
-
                                 $("#mensagem_time").html(e.status);
-
                             }
                         })
-
                 })
-
         }
-
     </script>
 }
 

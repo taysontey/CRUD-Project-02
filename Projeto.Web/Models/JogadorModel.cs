@@ -33,9 +33,4 @@ namespace Projeto.Web.Models
         public string Posicao { get; set; }
         public string Time { get; set; }
     }
-
-    public class JogadorModelId
-    {
-        public int IdJogador { get; set; }
-    }
 }

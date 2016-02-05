@@ -42,12 +42,11 @@
                             $("#mensagem_jogador").html(e.status);
                         }
                     });
-
             })
 
         function deleteFunction(id) {
 
-            var dados = {
+            var Model = {
 
                 IdJogador: id
             }
@@ -56,7 +55,7 @@
                 {
                     type: "POST",
                     url: "/Jogador/Excluir",
-                    data: dados,
+                    data: Model,
                     success: function (msg) {
 
                         $("#mensagem_jogador").html(msg);
@@ -71,7 +70,6 @@
                         $("#mensagem_jogador").html(e.status);
                     }
                 });
-
         }
 
         function editFunction(id) {
@@ -85,11 +83,7 @@
 
             $('#janela_edicao').modal('show');
 
-            var dados = {
-
-                IdJogador: id
-            }
-
+            //Carregando o dropdown de times para edição.
             $.ajax(
                     {
                         type: "POST",
@@ -109,11 +103,16 @@
 
                     });
 
+            var Model = {
+
+                IdJogador: id
+            }
+
             $.ajax(
                 {
                     type: "POST",
                     url: "/Jogador/Editar",
-                    data: dados,
+                    data: Model,
                     success: function (lista) {
 
                         $("#jogador_id").val(lista.IdJogador);
@@ -132,7 +131,7 @@
             $("#btnedicao_jogador").click(
                 function () {
 
-                    var dados = {
+                    var Model = {
 
                         IdJogador: $("#jogador_id").val(),
                         Nome: $("#jogador_nome").val(),
@@ -146,7 +145,7 @@
                         {
                             type: "POST",
                             url: "/Jogador/Edicao",
-                            data: dados,
+                            data: Model,
                             success: function (msg) {
 
                                 $('#janela_edicao').modal('hide');
@@ -156,23 +155,15 @@
                                         function () {
                                             location.reload()
                                         }, 3000)
-
                             },
                             error: function (e) {
-
                                 $("#mensagem_jogador").html(e.status);
-
                             }
                         })
-
                 })
-
         }
-
     </script>
 }
-
-
 
 <div class="container" style="text-align:center">
     <h3>Lista de Jogadores</h3>

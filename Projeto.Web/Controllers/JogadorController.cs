@@ -23,13 +23,14 @@ namespace Projeto.Web.Controllers
             return View();
         }
 
+        //Método para carregar o DropDown de times
         public JsonResult CarregarTimes()
         {
             try
             {
                 TimeDal d = new TimeDal();
 
-                var lista = new List<TimeModelDropDown>();
+                var list = new List<TimeModelDropDown>();
 
                 foreach (Time t in d.FindAll())
                 {
@@ -38,10 +39,10 @@ namespace Projeto.Web.Controllers
                     model.IdTime = t.IdTime;
                     model.Nome = t.Nome;
 
-                    lista.Add(model);
+                    list.Add(model);
                 }
 
-                return Json(lista);
+                return Json(list);
             }
             catch (Exception e)
             {
@@ -51,19 +52,19 @@ namespace Projeto.Web.Controllers
 
         public JsonResult Cadastrar(JogadorModelCadastro model)
         {
-            
+
             try
             {
                 Jogador j = new Jogador();
-                JogadorDal d = new JogadorDal();
-
                 j.Nome = model.Nome;
                 j.Apelido = model.Apelido;
                 j.Posicao = model.Posicao;
                 j.DataNascimento = model.DataNascimento;
+
                 j.Time = new Time();
                 j.Time.IdTime = model.IdTime;
 
+                JogadorDal d = new JogadorDal();
                 d.SaveOrUpdate(j);
 
                 return Json("Jogador " + j.Nome + ", cadastrado com sucesso.");
@@ -74,18 +75,15 @@ namespace Projeto.Web.Controllers
             }
         }
 
-        public JsonResult Editar(JogadorModelId m)
+        public JsonResult Editar(JogadorModelEdicao model)
         {
-            var model = new JogadorModelEdicao();
-
             try
             {
                 JogadorDal d = new JogadorDal();
-                Jogador j = d.FindById(m.IdJogador);
+                Jogador j = d.FindById(model.IdJogador);
 
-                if(j != null)
+                if (j != null)
                 {
-                    model.IdJogador = j.IdJogador;
                     model.Nome = j.Nome;
                     model.Apelido = j.Apelido;
                     model.Posicao = j.Posicao;
@@ -106,16 +104,16 @@ namespace Projeto.Web.Controllers
             try
             {
                 Jogador j = new Jogador();
-                JogadorDal d = new JogadorDal();
-
                 j.IdJogador = model.IdJogador;
                 j.Nome = model.Nome;
                 j.Apelido = model.Apelido;
                 j.Posicao = model.Posicao;
                 j.DataNascimento = model.DataNascimento;
+
                 j.Time = new Time();
                 j.Time.IdTime = model.IdTime;
 
+                JogadorDal d = new JogadorDal();
                 d.SaveOrUpdate(j);
 
                 return Json("Time editado com sucesso.");
@@ -133,7 +131,7 @@ namespace Projeto.Web.Controllers
                 JogadorDal d = new JogadorDal();
                 var list = new List<JogadorModelConsulta>();
 
-                foreach(Jogador j in d.FindAll())
+                foreach (Jogador j in d.FindAll())
                 {
                     var model = new JogadorModelConsulta();
 
@@ -155,18 +153,22 @@ namespace Projeto.Web.Controllers
             }
         }
 
-        public JsonResult Excluir(JogadorModelId m)
+        public JsonResult Excluir(JogadorModelEdicao model)
         {
             try
             {
                 JogadorDal d = new JogadorDal();
-                
-                if(d.FindById(m.IdJogador) != null)
-                {
-                    d.Delete(d.FindById(m.IdJogador));
-                }
+                Jogador j = d.FindById(model.IdJogador);
 
-                return Json("Time excluído.");
+                if (j != null)
+                {
+                    d.Delete(j);
+                    return Json("Jogador excluído.");
+                }
+                else
+                {
+                    return Json("Jogador não encontrado.");
+                }
             }
             catch (Exception e)
             {
