@@ -51,6 +51,7 @@ namespace Projeto.Web.Controllers
 
         public JsonResult Cadastrar(JogadorModelCadastro model)
         {
+            
             try
             {
                 Jogador j = new Jogador();
@@ -66,6 +67,58 @@ namespace Projeto.Web.Controllers
                 d.SaveOrUpdate(j);
 
                 return Json("Jogador " + j.Nome + ", cadastrado com sucesso.");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        public JsonResult Editar(JogadorModelId m)
+        {
+            var model = new JogadorModelEdicao();
+
+            try
+            {
+                JogadorDal d = new JogadorDal();
+                Jogador j = d.FindById(m.IdJogador);
+
+                if(j != null)
+                {
+                    model.IdJogador = j.IdJogador;
+                    model.Nome = j.Nome;
+                    model.Apelido = j.Apelido;
+                    model.Posicao = j.Posicao;
+                    model.DataNascimento = j.DataNascimento;
+                    model.IdTime = j.Time.IdTime;
+                }
+
+                return Json(model);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        public JsonResult Edicao(JogadorModelEdicao model)
+        {
+            try
+            {
+                Jogador j = new Jogador();
+                JogadorDal d = new JogadorDal();
+
+                j.IdJogador = model.IdJogador;
+                j.Nome = model.Nome;
+                j.Apelido = model.Apelido;
+                j.Posicao = model.Posicao;
+                j.DataNascimento = model.DataNascimento;
+                j.Time = new Time();
+                j.Time.IdTime = model.IdTime;
+
+                d.SaveOrUpdate(j);
+
+                return Json("Time editado com sucesso.");
             }
             catch (Exception e)
             {
@@ -95,6 +148,25 @@ namespace Projeto.Web.Controllers
                 }
 
                 return Json(list);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        public JsonResult Excluir(JogadorModelId m)
+        {
+            try
+            {
+                JogadorDal d = new JogadorDal();
+                
+                if(d.FindById(m.IdJogador) != null)
+                {
+                    d.Delete(d.FindById(m.IdJogador));
+                }
+
+                return Json("Time excluído.");
             }
             catch (Exception e)
             {
