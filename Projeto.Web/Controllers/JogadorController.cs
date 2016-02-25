@@ -60,8 +60,6 @@ namespace Projeto.Web.Controllers
                 j.Apelido = model.Apelido;
                 j.Posicao = model.Posicao;
                 j.DataNascimento = model.DataNascimento;
-
-                j.Time = new Time();
                 j.Time.IdTime = model.IdTime;
 
                 JogadorDal d = new JogadorDal();
